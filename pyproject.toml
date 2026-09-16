@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pv-sweep"
+version = "0.1.0"
+description = "Automate parameter sweeps for solar cell device simulations"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Mohammad Ghadimimehr"}]
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.21", "pyyaml>=5.4"]
+keywords = ["photovoltaics", "solar cell", "parameter sweep", "drift-diffusion", "simulation"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.5"]
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/mqadimimehr-hash/pv-sweep"
+
+[project.scripts]
+pvsweep = "pvsweep.cli:main"
+
+[tool.setuptools]
+packages = ["pvsweep"]
