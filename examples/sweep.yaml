@@ -1,0 +1,28 @@
+# Example sweep: series vs. shunt resistance with the built-in single-diode model.
+#   pvsweep run examples/sweep.yaml -o results.csv
+#   pvsweep plot results.csv --x Rs --y Rsh --z PCE -s pce_map.png
+mode: grid            # grid = full Cartesian product; oat = one parameter at a time
+
+base:                 # fixed values (and the reference point in oat mode)
+  Jph: 38.0           # mA/cm^2
+  J0: 1.0e-8          # mA/cm^2
+  n: 1.5
+  temperature: 300    # K
+
+parameters:
+  Rs: {linspace: [0.0, 8.0, 5]}        # ohm*cm^2
+  Rsh: {logspace: [2, 4, 5]}           # 1e2 .. 1e4 ohm*cm^2
+
+backend:
+  type: single_diode
+
+# Wrapping an external command-line simulator instead (sketch):
+# parameters:
+#   thickness: [100, 200, 400]
+# backend:
+#   type: command
+#   command: "mysim --thick {thickness} --out {output}"
+#   result_file: "{workdir}/jv_summary.csv"
+#   csv_columns: {Voc: voc, Jsc: jsc, FF: ff, PCE: eff}
+#   # or: regex: {PCE: 'Efficiency\s*=\s*([-+0-9.eE]+)'}
+#   timeout: 600
